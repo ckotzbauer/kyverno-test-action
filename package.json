@@ -1,26 +1,26 @@
 {
-  "name": "typescript-action",
+  "name": "kyverno-test-action",
   "version": "0.0.0",
   "private": true,
   "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "package": "ncc build src/main.ts -o dist",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/ckotzbauer/kyverno-test-action.git"
   },
   "keywords": [
     "actions",
-    "node",
-    "setup"
+    "kyverno",
+    "check"
   ],
   "author": "",
   "license": "MIT",
