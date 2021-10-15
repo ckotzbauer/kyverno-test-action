@@ -1,9 +1,7 @@
 name: build
 
 on:
-  push:
-    branches:
-      - '**'
+  push: {}
 
 jobs:
   build:
@@ -16,8 +14,12 @@ jobs:
         with:
           node-version: "14"
       - name: Prepare
-        run: npm ci
+        run: |
+          cd kyverno-test
+          npm ci
       - name: Build
-        run: npm run package
-      - name: Test
-        run: npm test
+        run: |
+          cd kyverno-test
+          npm run package
+      #- name: Test
+      #  run: npm test
