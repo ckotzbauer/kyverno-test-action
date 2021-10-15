@@ -1,11 +1,47 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'kyverno-test-action'
+description: 'Tests resources against kyverno policies'
+author: 'Christian Kotzbauer'
 inputs:
-  milliseconds: # change this
+  helm-version:
+    required: false
+    description: 'Version of helm'
+    default: 'latest'
+  kyverno-version:
+    required: false
+    description: 'Kyverno version'
+    default: v1.4.2
+  resource-files:
+    required: false
+    description: 'YAML files to test'
+    default: ""
+  chart-dir:
+    required: false
+    description: 'Directory of Helm-Chart to test'
+    default: ""
+  value-files:
+    required: false
+    description: 'Value-Files for Helm-Chart to test'
+    default: ""
+  rule-files:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Kyverno-Rule-Files'
+  token:
+    required: true
+    description: 'Github token'
+    default: ${{ github.token }}
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "composite"
+  steps:
+    - uses: azure/setup-helm@v1
+      with:
+        version: ${{ inputs.helm-version }}
+        token: ${{ inputs.token }}
+
+    - uses: ./kyverno-test
+      with:
+        kyverno-version: ${{ inputs.kyverno-version }}
+        resource-files: ${{ inputs.resource-files }}
+        chart-dir: ${{ inputs.chart-dir }}
+        value-files: ${{ inputs.value-files }}
+        rule-files: ${{ inputs.rule-files }}
+        token: ${{ inputs.token }}
