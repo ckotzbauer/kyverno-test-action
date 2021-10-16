@@ -24506,7 +24506,7 @@ const fetchResources = function () {
         const valueFiles = core.getInput("value-files", { required: false }).split("\n").filter(s => s);
         if (chartDir) {
             const values = valueFiles.map(f => ["-f", f]).flat();
-            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values], { outStream: null });
+            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values], { silent: true });
             if (output.exitCode === 0) {
                 resourceContents.push(output.stdout);
                 resources = [...resources, ...(0, exports.parseResource)(output.stdout)];
