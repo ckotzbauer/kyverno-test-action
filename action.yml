@@ -2,10 +2,10 @@ name: 'kyverno-test-action'
 description: 'Tests resources against kyverno policies'
 author: 'Christian Kotzbauer'
 inputs:
-  helm-version:
-    required: false
-    description: 'Version of helm'
-    default: 'latest'
+  token:
+    required: true
+    description: 'Github token'
+    default: ${{ github.token }}
   kyverno-version:
     required: false
     description: 'Kyverno version'
@@ -25,23 +25,6 @@ inputs:
   rule-files:
     required: true
     description: 'Kyverno-Rule-Files'
-  token:
-    required: true
-    description: 'Github token'
-    default: ${{ github.token }}
 runs:
-  using: "composite"
-  steps:
-    - uses: azure/setup-helm@v1
-      with:
-        version: ${{ inputs.helm-version }}
-        token: ${{ inputs.token }}
-
-    - uses: ckotzbauer/kyverno-test-action/kyverno-test@main
-      with:
-        kyverno-version: ${{ inputs.kyverno-version }}
-        resource-files: ${{ inputs.resource-files }}
-        chart-dir: ${{ inputs.chart-dir }}
-        value-files: ${{ inputs.value-files }}
-        rule-files: ${{ inputs.rule-files }}
-        token: ${{ inputs.token }}
+  using: 'node12'
+  main: 'dist/index.js'

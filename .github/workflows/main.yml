@@ -14,12 +14,8 @@ jobs:
         with:
           node-version: "14"
       - name: Prepare
-        run: |
-          cd kyverno-test
-          npm ci
+        run: npm ci
       - name: Build
-        run: |
-          cd kyverno-test
-          npm run package
+        run: npm run package
       #- name: Test
       #  run: npm test
