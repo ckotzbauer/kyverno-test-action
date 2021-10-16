@@ -8,8 +8,8 @@ import * as exec from "@actions/exec"
 const generateTestFile = async function (policies: ClusterPolicy[], resources: Resource[]): Promise<void> {
     const test: Test = {
         name: "kyverno-test",
-        resources: ["/tmp/kyverno-test/resources.yaml"],
-        policies: ["/tmp/kyverno-test/rules.yaml"],
+        resources: ["resources.yaml"],
+        policies: ["rules.yaml"],
         results: []
     };
 

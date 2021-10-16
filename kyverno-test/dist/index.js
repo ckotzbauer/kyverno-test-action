@@ -24317,8 +24317,8 @@ const generateTestFile = function (policies, resources) {
     return __awaiter(this, void 0, void 0, function* () {
         const test = {
             name: "kyverno-test",
-            resources: ["/tmp/kyverno-test/resources.yaml"],
-            policies: ["/tmp/kyverno-test/rules.yaml"],
+            resources: ["resources.yaml"],
+            policies: ["rules.yaml"],
             results: []
         };
         for (const policy of policies) {
