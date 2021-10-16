@@ -30,7 +30,6 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
     }
 
     const globber = await glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
-    core.info(globber.getSearchPaths().join("\n"));
     const files = await globber.glob();
     for await (const file of files) {
         const content = (await promisify(readFile)(file, "utf-8")).toString();
@@ -40,7 +39,8 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
     }
 
     const joined = ruleContents.join("\n---\n");
-    core.info(joined);
+    core.debug("Discovered rules to check:");
+    core.debug(joined);
     await promisify(writeFile)("/tmp/kyverno-test/rules.yaml", joined);
 
     if (policies.length === 0) {

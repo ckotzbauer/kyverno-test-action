@@ -29,7 +29,7 @@ export const fetchResources = async function (): Promise<Resource[]> {
 
     if (chartDir) {
         const values = valueFiles.map(f => ["-f", f]).flat();
-        const output = await exec.getExecOutput('helm', ['template', chartDir, ...values]);
+        const output = await exec.getExecOutput('helm', ['template', chartDir, ...values], { outStream: null });
 
         if (output.exitCode === 0) {
             resourceContents.push(output.stdout);
@@ -39,7 +39,10 @@ export const fetchResources = async function (): Promise<Resource[]> {
         }
     }
 
-    await promisify(writeFile)("/tmp/kyverno-test/resources.yaml", resourceContents.join("---\n"));
+    const joined = resourceContents.join("\n---\n");
+    core.debug("Discovered resources to check:");
+    core.debug(joined);
+    await promisify(writeFile)("/tmp/kyverno-test/resources.yaml", joined);
     return resources;
 }
 

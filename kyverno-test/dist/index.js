@@ -24338,7 +24338,8 @@ const generateTestFile = function (policies, resources) {
             }
         }
         const testContent = (0, js_yaml_1.dump)(test, { indent: 2 });
-        core.info(testContent);
+        core.debug("Generated test.yaml:");
+        core.debug(testContent);
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/test.yaml", testContent);
     });
 };
@@ -24505,7 +24506,7 @@ const fetchResources = function () {
         const valueFiles = core.getInput("value-files", { required: false }).split("\n").filter(s => s);
         if (chartDir) {
             const values = valueFiles.map(f => ["-f", f]).flat();
-            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values]);
+            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values], { outStream: null });
             if (output.exitCode === 0) {
                 resourceContents.push(output.stdout);
                 resources = [...resources, ...(0, exports.parseResource)(output.stdout)];
@@ -24514,7 +24515,10 @@ const fetchResources = function () {
                 core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
             }
         }
-        yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/resources.yaml", resourceContents.join("---\n"));
+        const joined = resourceContents.join("\n---\n");
+        core.debug("Discovered resources to check:");
+        core.debug(joined);
+        yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/resources.yaml", joined);
         return resources;
     });
 };
@@ -24613,7 +24617,6 @@ const fetchPolicies = function () {
             finally { if (e_1) throw e_1.error; }
         }
         const globber = yield glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
-        core.info(globber.getSearchPaths().join("\n"));
         const files = yield globber.glob();
         try {
             for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
@@ -24632,7 +24635,8 @@ const fetchPolicies = function () {
             finally { if (e_2) throw e_2.error; }
         }
         const joined = ruleContents.join("\n---\n");
-        core.info(joined);
+        core.debug("Discovered rules to check:");
+        core.debug(joined);
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/rules.yaml", joined);
         if (policies.length === 0) {
             core.setFailed("No policies found!");
