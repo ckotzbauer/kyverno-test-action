@@ -25,20 +25,25 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
                 ruleContents.push(content);
                 policies = [...policies, ...parsePolicyFile(content)];
             }
-        } else {
-            const globber = await glob.create(input, { followSymbolicLinks: false });
-            const files = await globber.glob();
-            for await (const file of files) {
-                const content = (await promisify(readFile)(file, "utf-8")).toString();
-                ruleContents.push(content);
-                policies = [...policies, ...parsePolicyFile(content)];
-            }
         }
+    }
+
+    const globber = await glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
+    const files = await globber.glob();
+    for await (const file of files) {
+        const content = (await promisify(readFile)(file, "utf-8")).toString();
+        ruleContents.push(content);
+        policies = [...policies, ...parsePolicyFile(content)];
     }
 
     const joined = ruleContents.join("\n---\n");
     core.info(joined);
     await promisify(writeFile)("/tmp/kyverno-test/rules.yaml", joined);
+
+    if (policies.length === 0) {
+        core.setFailed("No policies found!");
+    }
+
     return policies;
 }
 

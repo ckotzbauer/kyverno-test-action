@@ -24619,25 +24619,6 @@ const fetchPolicies = function () {
                         policies = [...policies, ...(0, exports.parsePolicyFile)(content)];
                     }
                 }
-                else {
-                    const globber = yield glob.create(input, { followSymbolicLinks: false });
-                    const files = yield globber.glob();
-                    try {
-                        for (var files_1 = (e_2 = void 0, __asyncValues(files)), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
-                            const file = files_1_1.value;
-                            const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
-                            ruleContents.push(content);
-                            policies = [...policies, ...(0, exports.parsePolicyFile)(content)];
-                        }
-                    }
-                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                    finally {
-                        try {
-                            if (files_1_1 && !files_1_1.done && (_b = files_1.return)) yield _b.call(files_1);
-                        }
-                        finally { if (e_2) throw e_2.error; }
-                    }
-                }
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -24647,9 +24628,29 @@ const fetchPolicies = function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
+        const globber = yield glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
+        const files = yield globber.glob();
+        try {
+            for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
+                const file = files_1_1.value;
+                const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
+                ruleContents.push(content);
+                policies = [...policies, ...(0, exports.parsePolicyFile)(content)];
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (files_1_1 && !files_1_1.done && (_b = files_1.return)) yield _b.call(files_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
         const joined = ruleContents.join("\n---\n");
         core.info(joined);
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/rules.yaml", joined);
+        if (policies.length === 0) {
+            core.setFailed("No policies found!");
+        }
         return policies;
     });
 };
