@@ -24629,6 +24629,7 @@ const fetchPolicies = function () {
             finally { if (e_1) throw e_1.error; }
         }
         const globber = yield glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
+        core.info(globber.getSearchPaths().join("\n"));
         const files = yield globber.glob();
         try {
             for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {

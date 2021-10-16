@@ -29,6 +29,7 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
     }
 
     const globber = await glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
+    core.info(globber.getSearchPaths().join("\n"));
     const files = await globber.glob();
     for await (const file of files) {
         const content = (await promisify(readFile)(file, "utf-8")).toString();
