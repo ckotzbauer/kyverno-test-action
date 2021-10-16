@@ -24,7 +24,7 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
             if (response.status >= 200 && response.status < 300 && (response.data as string)?.length > 0) {
                 const parsedPolicies = parsePolicyFile(response.data as string);
                 policies = [...policies, ...parsedPolicies];
-                ruleContents.push(dump(parsedPolicies, { indent: 2 }));
+                ruleContents.push(...parsedPolicies.map(p => dump(p, { indent: 2 })));
             }
         }
     }
@@ -36,7 +36,7 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
         const content = (await promisify(readFile)(file, "utf-8")).toString();
         const parsedPolicies = parsePolicyFile(content);
         policies = [...policies, ...parsedPolicies];
-        ruleContents.push(dump(parsedPolicies, { indent: 2 }));
+        ruleContents.push(...parsedPolicies.map(p => dump(p, { indent: 2 })));
     }
 
     const joined = ruleContents.join("\n---\n");

@@ -24600,7 +24600,7 @@ const fetchPolicies = function () {
                     if (response.status >= 200 && response.status < 300 && ((_c = response.data) === null || _c === void 0 ? void 0 : _c.length) > 0) {
                         const parsedPolicies = (0, exports.parsePolicyFile)(response.data);
                         policies = [...policies, ...parsedPolicies];
-                        ruleContents.push((0, js_yaml_2.dump)(parsedPolicies, { indent: 2 }));
+                        ruleContents.push(...parsedPolicies.map(p => (0, js_yaml_2.dump)(p, { indent: 2 })));
                     }
                 }
             }
@@ -24621,7 +24621,7 @@ const fetchPolicies = function () {
                 const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
                 const parsedPolicies = (0, exports.parsePolicyFile)(content);
                 policies = [...policies, ...parsedPolicies];
-                ruleContents.push((0, js_yaml_2.dump)(parsedPolicies, { indent: 2 }));
+                ruleContents.push(...parsedPolicies.map(p => (0, js_yaml_2.dump)(p, { indent: 2 })));
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
