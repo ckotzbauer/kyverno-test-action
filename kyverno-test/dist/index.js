@@ -24344,23 +24344,16 @@ const generateTestFile = function (policies, resources) {
 const executeTest = function (policies, resources) {
     return __awaiter(this, void 0, void 0, function* () {
         yield generateTestFile(policies, resources);
-        let stdOut = "";
-        let stdErr = "";
-        const options = {};
-        options.listeners = {
-            stdout: (data) => stdOut += data.toString(),
-            stderr: (data) => stdErr += data.toString()
-        };
-        const exitCode = yield exec.exec('kyverno', ['test', "/tmp/kyverno-test"], options);
+        const output = yield exec.getExecOutput('kyverno', ['test', "/tmp/kyverno-test"]);
         core.info("stdOut");
-        core.info(stdOut);
+        core.info(output.stdout);
         core.error("stdErr");
-        core.error(stdErr);
-        if (exitCode === 0) {
+        core.error(output.stderr);
+        if (output.exitCode === 0) {
             core.info("Test successful!");
         }
         else {
-            core.error(`Kyverno exited with code ${exitCode}.`);
+            core.error(`Kyverno exited with code ${output.exitCode}.`);
         }
     });
 };
@@ -24514,21 +24507,14 @@ const fetchResources = function () {
         const chartDir = core.getInput("chart-dir", { required: false });
         const valueFiles = core.getInput("value-files", { required: false }).split("\n").filter(s => s);
         if (chartDir) {
-            let stdOut = "";
-            let stdErr = "";
-            const options = {};
-            options.listeners = {
-                stdout: (data) => stdOut += data.toString(),
-                stderr: (data) => stdErr += data.toString()
-            };
             const values = valueFiles.map(f => ["-f", f]).flat();
-            const exitCode = yield exec.exec('helm', ['template', chartDir, ...values], options);
-            if (exitCode === 0) {
-                resourceContents.push(stdOut);
-                resources = [...resources, ...(0, exports.parseResource)(stdOut)];
+            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values]);
+            if (output.exitCode === 0) {
+                resourceContents.push(output.stdout);
+                resources = [...resources, ...(0, exports.parseResource)(output.stdout)];
             }
             else {
-                core.error(`Helm exited with code ${exitCode} and output: ${stdErr}`);
+                core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
             }
         }
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/resources.yaml", resourceContents.join("---\n"));

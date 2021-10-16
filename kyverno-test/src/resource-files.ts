@@ -28,22 +28,14 @@ export const fetchResources = async function (): Promise<Resource[]> {
     const valueFiles = core.getInput("value-files", { required: false }).split("\n").filter(s => s);
 
     if (chartDir) {
-        let stdOut = "";
-        let stdErr = "";
-        const options = {} as any;
-        options.listeners = {
-            stdout: (data: Buffer) => stdOut += data.toString(),
-            stderr: (data: Buffer) => stdErr += data.toString()
-        };
-
         const values = valueFiles.map(f => ["-f", f]).flat();
-        const exitCode = await exec.exec('helm', ['template', chartDir, ...values], options);
+        const output = await exec.getExecOutput('helm', ['template', chartDir, ...values]);
 
-        if (exitCode === 0) {
-            resourceContents.push(stdOut);
-            resources = [...resources, ...parseResource(stdOut)];
+        if (output.exitCode === 0) {
+            resourceContents.push(output.stdout);
+            resources = [...resources, ...parseResource(output.stdout)];
         } else {
-            core.error(`Helm exited with code ${exitCode} and output: ${stdErr}`);
+            core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
         }
     }
 

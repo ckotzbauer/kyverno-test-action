@@ -37,25 +37,16 @@ const generateTestFile = async function (policies: ClusterPolicy[], resources: R
 
 export const executeTest = async function (policies: ClusterPolicy[], resources: Resource[]): Promise<void> {
     await generateTestFile(policies, resources);
-
-    let stdOut = "";
-    let stdErr = "";
-    const options = {} as any;
-    options.listeners = {
-        stdout: (data: Buffer) => stdOut += data.toString(),
-        stderr: (data: Buffer) => stdErr += data.toString()
-    };
-
-    const exitCode = await exec.exec('kyverno', ['test', "/tmp/kyverno-test"], options);
+    const output = await exec.getExecOutput('kyverno', ['test', "/tmp/kyverno-test"]);
 
     core.info("stdOut");
-    core.info(stdOut);
+    core.info(output.stdout);
     core.error("stdErr");
-    core.error(stdErr);
+    core.error(output.stderr);
 
-    if (exitCode === 0) {
+    if (output.exitCode === 0) {
         core.info("Test successful!");
     } else {
-        core.error(`Kyverno exited with code ${exitCode}.`);
+        core.error(`Kyverno exited with code ${output.exitCode}.`);
     }
 }
