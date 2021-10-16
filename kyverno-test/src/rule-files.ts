@@ -76,6 +76,9 @@ export const parsePolicyFile = function (content: string): ClusterPolicy[] {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { template: rule.validate.pattern } }
+                                : null,
+                            deny: rule.validate.deny?.conditions
+                                ? { conditions: rule.validate.deny?.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     },
@@ -94,6 +97,9 @@ export const parsePolicyFile = function (content: string): ClusterPolicy[] {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null,
+                            deny: rule.validate.deny?.conditions
+                                ? { conditions: rule.validate.deny?.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.jobTemplate.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     }

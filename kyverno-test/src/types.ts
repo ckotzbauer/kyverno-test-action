@@ -23,7 +23,14 @@ export interface Rule {
     validate: {
         message: string,
         pattern?: unknown,
-        anyPattern?: unknown
+        anyPattern?: unknown,
+        deny?: {
+            conditions: Array<{
+                key: string;
+                operator: string;
+                value: string;
+            }>
+        }
     }
 }
 

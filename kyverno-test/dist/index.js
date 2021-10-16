@@ -24642,7 +24642,7 @@ const fetchPolicies = function () {
 };
 exports.fetchPolicies = fetchPolicies;
 const parsePolicyFile = function (content) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
     const policies = (0, js_yaml_1.loadAll)(content);
     for (const policy of policies) {
         const additionalRules = [];
@@ -24666,6 +24666,9 @@ const parsePolicyFile = function (content) {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { template: rule.validate.pattern } }
+                                : null,
+                            deny: ((_g = rule.validate.deny) === null || _g === void 0 ? void 0 : _g.conditions)
+                                ? { conditions: (_h = rule.validate.deny) === null || _h === void 0 ? void 0 : _h.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     },
@@ -24684,6 +24687,9 @@ const parsePolicyFile = function (content) {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null,
+                            deny: ((_j = rule.validate.deny) === null || _j === void 0 ? void 0 : _j.conditions)
+                                ? { conditions: (_k = rule.validate.deny) === null || _k === void 0 ? void 0 : _k.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.jobTemplate.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     }
