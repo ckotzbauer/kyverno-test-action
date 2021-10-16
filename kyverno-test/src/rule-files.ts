@@ -7,7 +7,8 @@ import axios from "axios"
 import { readFile, writeFile } from "fs"
 import { promisify } from "util"
 import { loadAll } from "js-yaml";
-import { ClusterPolicy } from "./types"
+import { ClusterPolicy, Rule } from "./types"
+import { dump } from "js-yaml";
 
 export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
     const inputs = core.getInput("rule-files", { required: true }).split("\n").filter(s => s);
@@ -21,9 +22,9 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
         } else if (isUrl(input)) {
             const response = await axios.get(input);
             if (response.status >= 200 && response.status < 300 && (response.data as string)?.length > 0) {
-                const content = response.data as string;
-                ruleContents.push(content);
-                policies = [...policies, ...parsePolicyFile(content)];
+                const parsedPolicies = parsePolicyFile(response.data as string);
+                policies = [...policies, ...parsedPolicies];
+                ruleContents.push(dump(parsedPolicies, { indent: 2 }));
             }
         }
     }
@@ -33,8 +34,9 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
     const files = await globber.glob();
     for await (const file of files) {
         const content = (await promisify(readFile)(file, "utf-8")).toString();
-        ruleContents.push(content);
-        policies = [...policies, ...parsePolicyFile(content)];
+        const parsedPolicies = parsePolicyFile(content);
+        policies = [...policies, ...parsedPolicies];
+        ruleContents.push(dump(parsedPolicies, { indent: 2 }));
     }
 
     const joined = ruleContents.join("\n---\n");
@@ -49,5 +51,59 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
 }
 
 export const parsePolicyFile = function (content: string): ClusterPolicy[] {
-    return loadAll(content) as ClusterPolicy[];
+    const policies = loadAll(content) as ClusterPolicy[];
+    for (const policy of policies) {
+        const additionalRules: Rule[] = [];
+
+        for (const rule of policy.spec.rules) {
+            const relatesToPods = rule?.match?.resources?.kinds?.includes("Pod") 
+                || rule?.exclude?.resources?.kinds?.includes("Pod");
+
+            if (relatesToPods) {
+                const autoGenRules: Rule[] = [
+                    {
+                        name: `autogen-${rule.name}`,
+                        match: rule.match 
+                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
+                            : null,
+                        exclude: rule.exclude
+                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
+                            : null,
+                        validate: {
+                            message: rule.validate.message,
+                            pattern: rule.validate.pattern 
+                                ? { spec: { template: rule.validate.pattern } }
+                                : null,
+                            anyPattern: rule.validate.anyPattern
+                                ? { spec: { template: rule.validate.pattern } }
+                                : null
+                        }
+                    },
+                    {
+                        name: `autogen-cronjob-${rule.name}`,
+                        match: rule.match
+                            ? { resources: { kinds: ["CronJob"] } }
+                            : null,
+                        exclude: rule.exclude
+                            ? { resources: { kinds: ["CronJob"] } }
+                            : null,
+                        validate: {
+                            message: rule.validate.message,
+                            pattern: rule.validate.pattern
+                                ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null,
+                            anyPattern: rule.validate.anyPattern
+                                ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null
+                        }
+                    }
+                ];
+
+                additionalRules.push(...autoGenRules);
+            }
+        }
+
+        policy.spec.rules = [...policy.spec.rules, ...additionalRules];
+    }
+    return policies;
 }

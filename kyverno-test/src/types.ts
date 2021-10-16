@@ -4,19 +4,26 @@ export interface ClusterPolicy {
         name: string;
     },
     spec: {
-        rules: Array<{
-            name: string,
-            match: {
-                resources: {
-                    kinds: string[]
-                }
-            },
-            exclude: {
-                resources: {
-                    kinds: string[]
-                }
-            }
-        }>
+        rules: Rule[]
+    }
+}
+
+export interface Rule {
+    name: string,
+    match?: {
+        resources: {
+            kinds: string[]
+        }
+    },
+    exclude?: {
+        resources: {
+            kinds: string[]
+        }
+    },
+    validate: {
+        message: string,
+        pattern?: unknown,
+        anyPattern?: unknown
     }
 }
 

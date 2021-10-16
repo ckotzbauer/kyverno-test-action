@@ -24581,6 +24581,7 @@ const axios_1 = __importDefault(__nccwpck_require__(6545));
 const fs_1 = __nccwpck_require__(5747);
 const util_1 = __nccwpck_require__(1669);
 const js_yaml_1 = __nccwpck_require__(1917);
+const js_yaml_2 = __nccwpck_require__(1917);
 const fetchPolicies = function () {
     var e_1, _a, e_2, _b;
     var _c;
@@ -24597,9 +24598,9 @@ const fetchPolicies = function () {
                 else if ((0, is_url_1.default)(input)) {
                     const response = yield axios_1.default.get(input);
                     if (response.status >= 200 && response.status < 300 && ((_c = response.data) === null || _c === void 0 ? void 0 : _c.length) > 0) {
-                        const content = response.data;
-                        ruleContents.push(content);
-                        policies = [...policies, ...(0, exports.parsePolicyFile)(content)];
+                        const parsedPolicies = (0, exports.parsePolicyFile)(response.data);
+                        policies = [...policies, ...parsedPolicies];
+                        ruleContents.push((0, js_yaml_2.dump)(parsedPolicies, { indent: 2 }));
                     }
                 }
             }
@@ -24618,8 +24619,9 @@ const fetchPolicies = function () {
             for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
                 const file = files_1_1.value;
                 const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
-                ruleContents.push(content);
-                policies = [...policies, ...(0, exports.parsePolicyFile)(content)];
+                const parsedPolicies = (0, exports.parsePolicyFile)(content);
+                policies = [...policies, ...parsedPolicies];
+                ruleContents.push((0, js_yaml_2.dump)(parsedPolicies, { indent: 2 }));
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -24640,7 +24642,58 @@ const fetchPolicies = function () {
 };
 exports.fetchPolicies = fetchPolicies;
 const parsePolicyFile = function (content) {
-    return (0, js_yaml_1.loadAll)(content);
+    var _a, _b, _c, _d, _e, _f;
+    const policies = (0, js_yaml_1.loadAll)(content);
+    for (const policy of policies) {
+        const additionalRules = [];
+        for (const rule of policy.spec.rules) {
+            const relatesToPods = ((_c = (_b = (_a = rule === null || rule === void 0 ? void 0 : rule.match) === null || _a === void 0 ? void 0 : _a.resources) === null || _b === void 0 ? void 0 : _b.kinds) === null || _c === void 0 ? void 0 : _c.includes("Pod"))
+                || ((_f = (_e = (_d = rule === null || rule === void 0 ? void 0 : rule.exclude) === null || _d === void 0 ? void 0 : _d.resources) === null || _e === void 0 ? void 0 : _e.kinds) === null || _f === void 0 ? void 0 : _f.includes("Pod"));
+            if (relatesToPods) {
+                const autoGenRules = [
+                    {
+                        name: `autogen-${rule.name}`,
+                        match: rule.match
+                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
+                            : null,
+                        exclude: rule.exclude
+                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
+                            : null,
+                        validate: {
+                            message: rule.validate.message,
+                            pattern: rule.validate.pattern
+                                ? { spec: { template: rule.validate.pattern } }
+                                : null,
+                            anyPattern: rule.validate.anyPattern
+                                ? { spec: { template: rule.validate.pattern } }
+                                : null
+                        }
+                    },
+                    {
+                        name: `autogen-cronjob-${rule.name}`,
+                        match: rule.match
+                            ? { resources: { kinds: ["CronJob"] } }
+                            : null,
+                        exclude: rule.exclude
+                            ? { resources: { kinds: ["CronJob"] } }
+                            : null,
+                        validate: {
+                            message: rule.validate.message,
+                            pattern: rule.validate.pattern
+                                ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null,
+                            anyPattern: rule.validate.anyPattern
+                                ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
+                                : null
+                        }
+                    }
+                ];
+                additionalRules.push(...autoGenRules);
+            }
+        }
+        policy.spec.rules = [...policy.spec.rules, ...additionalRules];
+    }
+    return policies;
 };
 exports.parsePolicyFile = parsePolicyFile;
 
