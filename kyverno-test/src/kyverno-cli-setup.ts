@@ -85,16 +85,19 @@ export async function downloadKyverno(version: string): Promise<string> {
   }
   let cachedToolpath = toolCache.find(kyvernoToolName, version);
   if (!cachedToolpath) {
+    const downloadUrl = getKyvernoDownloadURL(version);
     let kyvernoDownloadPath;
     try {
-      kyvernoDownloadPath = await toolCache.downloadTool(getKyvernoDownloadURL(version));
+      core.info(`Download kyverno from url: ${downloadUrl}`);
+      kyvernoDownloadPath = await toolCache.downloadTool(downloadUrl);
     } catch (exception) {
-      throw new Error(`Failed to download Kyverno from location ${getKyvernoDownloadURL(version)}`);
+      throw new Error(`Failed to download Kyverno from location ${downloadUrl}`);
     }
 
     fs.chmodSync(kyvernoDownloadPath, "777");
+    core.info(`Extract kyverno archive: ${kyvernoDownloadPath}`);
     let extractedKyvernoPath: string;
-    if (kyvernoDownloadPath.endsWith("tar.gz")) {
+    if (os.type() !== "Windows_NT") {
       extractedKyvernoPath = await toolCache.extractTar(kyvernoDownloadPath);
     } else {
       extractedKyvernoPath = await toolCache.extractZip(kyvernoDownloadPath);
