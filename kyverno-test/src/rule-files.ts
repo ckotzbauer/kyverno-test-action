@@ -58,8 +58,10 @@ export const parsePolicyFile = function (content: string): ClusterPolicy[] {
         for (const rule of policy.spec.rules) {
             const relatesToPods = rule?.match?.resources?.kinds?.includes("Pod") 
                 || rule?.exclude?.resources?.kinds?.includes("Pod");
+            const hasPatternOrAntiPattern = rule?.validate?.pattern
+                || rule?.validate?.anyPattern;
 
-            if (relatesToPods) {
+            if (relatesToPods && hasPatternOrAntiPattern) {
                 const autoGenRules: Rule[] = [
                     {
                         name: `autogen-${rule.name}`,
@@ -76,9 +78,6 @@ export const parsePolicyFile = function (content: string): ClusterPolicy[] {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { template: rule.validate.pattern } }
-                                : null,
-                            deny: rule.validate.deny?.conditions
-                                ? { conditions: rule.validate.deny?.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     },
@@ -97,9 +96,6 @@ export const parsePolicyFile = function (content: string): ClusterPolicy[] {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
-                                : null,
-                            deny: rule.validate.deny?.conditions
-                                ? { conditions: rule.validate.deny?.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.jobTemplate.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     }

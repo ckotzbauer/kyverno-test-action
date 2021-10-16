@@ -24642,14 +24642,16 @@ const fetchPolicies = function () {
 };
 exports.fetchPolicies = fetchPolicies;
 const parsePolicyFile = function (content) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     const policies = (0, js_yaml_1.loadAll)(content);
     for (const policy of policies) {
         const additionalRules = [];
         for (const rule of policy.spec.rules) {
             const relatesToPods = ((_c = (_b = (_a = rule === null || rule === void 0 ? void 0 : rule.match) === null || _a === void 0 ? void 0 : _a.resources) === null || _b === void 0 ? void 0 : _b.kinds) === null || _c === void 0 ? void 0 : _c.includes("Pod"))
                 || ((_f = (_e = (_d = rule === null || rule === void 0 ? void 0 : rule.exclude) === null || _d === void 0 ? void 0 : _d.resources) === null || _e === void 0 ? void 0 : _e.kinds) === null || _f === void 0 ? void 0 : _f.includes("Pod"));
-            if (relatesToPods) {
+            const hasPatternOrAntiPattern = ((_g = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _g === void 0 ? void 0 : _g.pattern)
+                || ((_h = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _h === void 0 ? void 0 : _h.anyPattern);
+            if (relatesToPods && hasPatternOrAntiPattern) {
                 const autoGenRules = [
                     {
                         name: `autogen-${rule.name}`,
@@ -24666,9 +24668,6 @@ const parsePolicyFile = function (content) {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { template: rule.validate.pattern } }
-                                : null,
-                            deny: ((_g = rule.validate.deny) === null || _g === void 0 ? void 0 : _g.conditions)
-                                ? { conditions: (_h = rule.validate.deny) === null || _h === void 0 ? void 0 : _h.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     },
@@ -24687,9 +24686,6 @@ const parsePolicyFile = function (content) {
                                 : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
-                                : null,
-                            deny: ((_j = rule.validate.deny) === null || _j === void 0 ? void 0 : _j.conditions)
-                                ? { conditions: (_k = rule.validate.deny) === null || _k === void 0 ? void 0 : _k.conditions.map(c => ({ key: c.key.replace("request.object.spec", "request.object.spec.jobTemplate.spec.template.spec"), operator: c.operator, value: c.value })) }
                                 : null
                         }
                     }
