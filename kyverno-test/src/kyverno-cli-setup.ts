@@ -167,7 +167,7 @@ export function findKyverno(rootFolder: string): string {
 }
 
 export async function setupKyvernoCli(): Promise<void> {
-  let version = core.getInput("version", { required: true });
+  let version = core.getInput("kyverno-version", { required: true });
 
   if (version.toLocaleLowerCase() === "latest" || version === latestKyvernoVersion) {
     version = await getLatestKyvernoVersion();

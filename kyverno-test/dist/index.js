@@ -24244,7 +24244,7 @@ exports.findKyverno = findKyverno;
 function setupKyvernoCli() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        let version = core.getInput("version", { required: true });
+        let version = core.getInput("kyverno-version", { required: true });
         if (version.toLocaleLowerCase() === "latest" || version === latestKyvernoVersion) {
             version = yield getLatestKyvernoVersion();
         }
