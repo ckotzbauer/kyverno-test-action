@@ -32,17 +32,13 @@ const generateTestFile = async function (policies: ClusterPolicy[], resources: R
     }
 
     const testContent = dump(test, { indent: 2 });
+    core.info(testContent);
     await promisify(writeFile)("/tmp/kyverno-test/test.yaml", testContent);
 };
 
 export const executeTest = async function (policies: ClusterPolicy[], resources: Resource[]): Promise<void> {
     await generateTestFile(policies, resources);
     const output = await exec.getExecOutput('kyverno', ['test', "/tmp/kyverno-test"]);
-
-    core.info("stdOut");
-    core.info(output.stdout);
-    core.error("stdErr");
-    core.error(output.stderr);
 
     if (output.exitCode === 0) {
         core.info("Test successful!");

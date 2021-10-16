@@ -24338,6 +24338,7 @@ const generateTestFile = function (policies, resources) {
             }
         }
         const testContent = (0, js_yaml_1.dump)(test, { indent: 2 });
+        core.info(testContent);
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/test.yaml", testContent);
     });
 };
@@ -24345,10 +24346,6 @@ const executeTest = function (policies, resources) {
     return __awaiter(this, void 0, void 0, function* () {
         yield generateTestFile(policies, resources);
         const output = yield exec.getExecOutput('kyverno', ['test', "/tmp/kyverno-test"]);
-        core.info("stdOut");
-        core.info(output.stdout);
-        core.error("stdErr");
-        core.error(output.stderr);
         if (output.exitCode === 0) {
             core.info("Test successful!");
         }
