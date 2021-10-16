@@ -24319,7 +24319,7 @@ const generateTestFile = function (policies, resources) {
             name: "kyverno-test",
             resources: ["resources.yaml"],
             policies: ["rules.yaml"],
-            results: []
+            results: [],
         };
         for (const policy of policies) {
             for (const rule of policy.spec.rules) {
@@ -24331,7 +24331,7 @@ const generateTestFile = function (policies, resources) {
                             policy: policy.metadata.name,
                             rule: rule.name,
                             resource: resource.metadata.name,
-                            status: "pass"
+                            status: "pass",
                         });
                     }
                 }
@@ -24346,7 +24346,7 @@ const generateTestFile = function (policies, resources) {
 const executeTest = function (policies, resources) {
     return __awaiter(this, void 0, void 0, function* () {
         yield generateTestFile(policies, resources);
-        const output = yield exec.getExecOutput('kyverno', ['test', "/tmp/kyverno-test"]);
+        const output = yield exec.getExecOutput("kyverno", ["test", "/tmp/kyverno-test"]);
         if (output.exitCode === 0) {
             core.info("Test successful!");
         }
@@ -24404,7 +24404,13 @@ function run() {
         try {
             yield (0, kyverno_cli_setup_1.setupKyvernoCli)();
             const policies = yield (0, rule_files_1.fetchPolicies)();
+            if (policies.length == 0) {
+                return;
+            }
             const resources = yield (0, resource_files_1.fetchResources)();
+            if (resources.length == 0) {
+                return;
+            }
             yield (0, kyverno_test_1.executeTest)(policies, resources);
         }
         catch (error) {
@@ -24467,46 +24473,45 @@ const fs_1 = __nccwpck_require__(5747);
 const util_1 = __nccwpck_require__(1669);
 const js_yaml_1 = __nccwpck_require__(1917);
 const fetchResources = function () {
-    var e_1, _a, e_2, _b;
+    var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
-        const resourceFiles = core.getInput("resource-files", { required: false }).split("\n").filter(s => s);
+        const resourceFiles = core
+            .getInput("resource-files", { required: false });
         yield io.mkdirP("/tmp/kyverno-test");
         const resourceContents = [];
         let resources = [];
+        const globber = yield glob.create(resourceFiles, { followSymbolicLinks: false });
+        const files = yield globber.glob();
         try {
-            for (var resourceFiles_1 = __asyncValues(resourceFiles), resourceFiles_1_1; resourceFiles_1_1 = yield resourceFiles_1.next(), !resourceFiles_1_1.done;) {
-                const input = resourceFiles_1_1.value;
-                const globber = yield glob.create(input, { followSymbolicLinks: false });
-                const files = yield globber.glob();
-                try {
-                    for (var files_1 = (e_2 = void 0, __asyncValues(files)), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
-                        const file = files_1_1.value;
-                        const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
-                        resourceContents.push(content);
-                        resources = [...resources, ...(0, exports.parseResource)(content)];
-                    }
-                }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (files_1_1 && !files_1_1.done && (_b = files_1.return)) yield _b.call(files_1);
-                    }
-                    finally { if (e_2) throw e_2.error; }
-                }
+            for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
+                const file = files_1_1.value;
+                const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
+                resourceContents.push(content);
+                resources = [...resources, ...(0, exports.parseResource)(content)];
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (resourceFiles_1_1 && !resourceFiles_1_1.done && (_a = resourceFiles_1.return)) yield _a.call(resourceFiles_1);
+                if (files_1_1 && !files_1_1.done && (_a = files_1.return)) yield _a.call(files_1);
             }
             finally { if (e_1) throw e_1.error; }
         }
+        if (resourceFiles && files.length === 0) {
+            core.warning(`No files resolved for input: ${resourceFiles}`);
+        }
         const chartDir = core.getInput("chart-dir", { required: false });
-        const valueFiles = core.getInput("value-files", { required: false }).split("\n").filter(s => s);
+        const valueFiles = core
+            .getInput("value-files", { required: false })
+            .split("\n")
+            .filter((s) => s);
+        if (!resourceFiles && !chartDir) {
+            core.setFailed("Either set 'resource-files' or 'chart-dir'!");
+            return [];
+        }
         if (chartDir) {
-            const values = valueFiles.map(f => ["-f", f]).flat();
-            const output = yield exec.getExecOutput('helm', ['template', chartDir, ...values], { silent: true });
+            const values = valueFiles.map((f) => ["-f", f]).flat();
+            const output = yield exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: true });
             if (output.exitCode === 0) {
                 resourceContents.push(output.stdout);
                 resources = [...resources, ...(0, exports.parseResource)(output.stdout)];
@@ -24514,6 +24519,10 @@ const fetchResources = function () {
             else {
                 core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
             }
+        }
+        if (resources.length === 0) {
+            core.setFailed("No resource-files found!");
+            return [];
         }
         const joined = resourceContents.join("\n---\n");
         core.debug("Discovered resources to check:");
@@ -24590,7 +24599,10 @@ const fetchPolicies = function () {
     var e_1, _a, e_2, _b;
     var _c;
     return __awaiter(this, void 0, void 0, function* () {
-        const inputs = core.getInput("rule-files", { required: true }).split("\n").filter(s => s);
+        const inputs = core
+            .getInput("policy-files", { required: true })
+            .split("\n")
+            .filter((s) => s);
         yield io.mkdirP("/tmp/kyverno-test");
         const ruleContents = [];
         let policies = [];
@@ -24598,13 +24610,14 @@ const fetchPolicies = function () {
             for (var inputs_1 = __asyncValues(inputs), inputs_1_1; inputs_1_1 = yield inputs_1.next(), !inputs_1_1.done;) {
                 const input = inputs_1_1.value;
                 if ((0, is_git_url_1.default)(input)) {
+                    // TODO:
                 }
                 else if ((0, is_url_1.default)(input)) {
                     const response = yield axios_1.default.get(input);
                     if (response.status >= 200 && response.status < 300 && ((_c = response.data) === null || _c === void 0 ? void 0 : _c.length) > 0) {
                         const parsedPolicies = (0, exports.parsePolicyFile)(response.data);
                         policies = [...policies, ...parsedPolicies];
-                        ruleContents.push(...parsedPolicies.map(p => (0, js_yaml_2.dump)(p, { indent: 2 })));
+                        ruleContents.push(...parsedPolicies.map((p) => (0, js_yaml_2.dump)(p, { indent: 2 })));
                     }
                 }
             }
@@ -24616,7 +24629,7 @@ const fetchPolicies = function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        const globber = yield glob.create(core.getInput("rule-files", { required: true }), { followSymbolicLinks: false });
+        const globber = yield glob.create(core.getInput("policy-files", { required: true }), { followSymbolicLinks: false });
         const files = yield globber.glob();
         try {
             for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
@@ -24624,7 +24637,7 @@ const fetchPolicies = function () {
                 const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
                 const parsedPolicies = (0, exports.parsePolicyFile)(content);
                 policies = [...policies, ...parsedPolicies];
-                ruleContents.push(...parsedPolicies.map(p => (0, js_yaml_2.dump)(p, { indent: 2 })));
+                ruleContents.push(...parsedPolicies.map((p) => (0, js_yaml_2.dump)(p, { indent: 2 })));
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -24651,48 +24664,32 @@ const parsePolicyFile = function (content) {
     for (const policy of policies) {
         const additionalRules = [];
         for (const rule of policy.spec.rules) {
-            const relatesToPods = ((_c = (_b = (_a = rule === null || rule === void 0 ? void 0 : rule.match) === null || _a === void 0 ? void 0 : _a.resources) === null || _b === void 0 ? void 0 : _b.kinds) === null || _c === void 0 ? void 0 : _c.includes("Pod"))
-                || ((_f = (_e = (_d = rule === null || rule === void 0 ? void 0 : rule.exclude) === null || _d === void 0 ? void 0 : _d.resources) === null || _e === void 0 ? void 0 : _e.kinds) === null || _f === void 0 ? void 0 : _f.includes("Pod"));
-            const hasPatternOrAntiPattern = ((_g = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _g === void 0 ? void 0 : _g.pattern)
-                || ((_h = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _h === void 0 ? void 0 : _h.anyPattern);
+            const relatesToPods = ((_c = (_b = (_a = rule === null || rule === void 0 ? void 0 : rule.match) === null || _a === void 0 ? void 0 : _a.resources) === null || _b === void 0 ? void 0 : _b.kinds) === null || _c === void 0 ? void 0 : _c.includes("Pod")) || ((_f = (_e = (_d = rule === null || rule === void 0 ? void 0 : rule.exclude) === null || _d === void 0 ? void 0 : _d.resources) === null || _e === void 0 ? void 0 : _e.kinds) === null || _f === void 0 ? void 0 : _f.includes("Pod"));
+            const hasPatternOrAntiPattern = ((_g = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _g === void 0 ? void 0 : _g.pattern) || ((_h = rule === null || rule === void 0 ? void 0 : rule.validate) === null || _h === void 0 ? void 0 : _h.anyPattern);
             if (relatesToPods && hasPatternOrAntiPattern) {
                 const autoGenRules = [
                     {
                         name: `autogen-${rule.name}`,
-                        match: rule.match
-                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
-                            : null,
-                        exclude: rule.exclude
-                            ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } }
-                            : null,
+                        match: rule.match ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } } : null,
+                        exclude: rule.exclude ? { resources: { kinds: ["DaemonSet", "Deployment", "Job", "StatefulSet"] } } : null,
                         validate: {
                             message: rule.validate.message,
-                            pattern: rule.validate.pattern
-                                ? { spec: { template: rule.validate.pattern } }
-                                : null,
-                            anyPattern: rule.validate.anyPattern
-                                ? { spec: { template: rule.validate.pattern } }
-                                : null
-                        }
+                            pattern: rule.validate.pattern ? { spec: { template: rule.validate.pattern } } : null,
+                            anyPattern: rule.validate.anyPattern ? { spec: { template: rule.validate.pattern } } : null,
+                        },
                     },
                     {
                         name: `autogen-cronjob-${rule.name}`,
-                        match: rule.match
-                            ? { resources: { kinds: ["CronJob"] } }
-                            : null,
-                        exclude: rule.exclude
-                            ? { resources: { kinds: ["CronJob"] } }
-                            : null,
+                        match: rule.match ? { resources: { kinds: ["CronJob"] } } : null,
+                        exclude: rule.exclude ? { resources: { kinds: ["CronJob"] } } : null,
                         validate: {
                             message: rule.validate.message,
-                            pattern: rule.validate.pattern
-                                ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
-                                : null,
+                            pattern: rule.validate.pattern ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } } : null,
                             anyPattern: rule.validate.anyPattern
                                 ? { spec: { jobTemplate: { spec: { template: rule.validate.pattern } } } }
-                                : null
-                        }
-                    }
+                                : null,
+                        },
+                    },
                 ];
                 additionalRules.push(...autoGenRules);
             }

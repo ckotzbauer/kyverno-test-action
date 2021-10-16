@@ -22,9 +22,9 @@ inputs:
     required: false
     description: 'Value-Files for Helm-Chart to test'
     default: ""
-  rule-files:
+  policy-files:
     required: true
-    description: 'Kyverno-Rule-Files'
+    description: 'Kyverno-Policy-Files'
 runs:
   using: 'node12'
   main: 'dist/index.js'
