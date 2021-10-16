@@ -37,7 +37,7 @@ runs:
         version: ${{ inputs.helm-version }}
         token: ${{ inputs.token }}
 
-    - uses: ./kyverno-test
+    - uses: ckotzbauer/kyverno-test-action/kyverno-test@main
       with:
         kyverno-version: ${{ inputs.kyverno-version }}
         resource-files: ${{ inputs.resource-files }}
