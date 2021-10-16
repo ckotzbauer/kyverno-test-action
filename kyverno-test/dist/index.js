@@ -24647,7 +24647,9 @@ const fetchPolicies = function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/rules.yaml", ruleContents.join("---\n"));
+        const joined = ruleContents.join("---\n");
+        core.info(joined);
+        yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/rules.yaml", joined);
         return policies;
     });
 };

@@ -36,7 +36,9 @@ export const fetchPolicies = async function(): Promise<ClusterPolicy[]> {
         }
     }
 
-    await promisify(writeFile)("/tmp/kyverno-test/rules.yaml", ruleContents.join("---\n"));
+    const joined = ruleContents.join("---\n");
+    core.info(joined);
+    await promisify(writeFile)("/tmp/kyverno-test/rules.yaml", joined);
     return policies;
 }
 
