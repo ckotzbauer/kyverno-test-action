@@ -24647,7 +24647,7 @@ const fetchPolicies = function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        const joined = ruleContents.join("---\n");
+        const joined = ruleContents.join("\n---\n");
         core.info(joined);
         yield (0, util_1.promisify)(fs_1.writeFile)("/tmp/kyverno-test/rules.yaml", joined);
         return policies;
