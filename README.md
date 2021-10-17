@@ -24,7 +24,7 @@
 | Name | Description | Required | Default |
 | --- | --- | --- | --- |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `true` | `GITHUB_TOKEN` |
-| `kyverno-version` | Version of the Kyverno-CLI. | `false` | `v1.4.2` |
+| `kyverno-version` | Version of the Kyverno-CLI. | `false` | `v1.4.3` |
 | `resource-files` | List of Kubernetes-YAML files to test. (Globs are supported) | `false` | `""` |
 | `chart-dir` | Helm-Chart directory | `false` | `""` |
 | `value-files` | List of Helm-Chart value files. | `false` | `""` |

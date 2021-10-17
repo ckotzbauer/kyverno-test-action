@@ -9,7 +9,7 @@ inputs:
   kyverno-version:
     required: false
     description: 'Kyverno version'
-    default: v1.4.2
+    default: v1.4.3
   resource-files:
     required: false
     description: 'YAML files to test'
