@@ -36,8 +36,8 @@
 
 The list of policy-files can consist of several types:
 - A URL: When a URL is detected, it is downloaded anonymously and treated as `ClusterPolicy`(s).
-- *A Git-URL: Not yet implemented*
 - A file-path: All files resolved by a optional Glob are treated as `ClusterPolicy`(s).
+- *A Kubeconfig-File: Comming soon*
 
 Files with multiple YAML-documents in it are supported (for both `resource-files` and `policy-files`).
 

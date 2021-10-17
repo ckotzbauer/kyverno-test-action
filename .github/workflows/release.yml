@@ -61,3 +61,9 @@ jobs:
           release_name: ${{ github.event.inputs.version }}
           body_path: commits.md
           prerelease: ${{ contains(github.event.inputs.version, 'alpha') || contains(github.event.inputs.version, 'beta') || contains(github.event.inputs.version, 'rc') }}
+
+      - name: Update v1 tag
+        run: |
+          git tag -fa v1 -m "Update v1 tag"
+          git push origin v1 --force
+

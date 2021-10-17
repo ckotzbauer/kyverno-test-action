@@ -2,7 +2,6 @@ import * as core from "@actions/core";
 import * as glob from "@actions/glob";
 import * as io from "@actions/io";
 import isUrl from "is-url";
-import isGitUrl from "is-git-url";
 import axios from "axios";
 import { readFile, writeFile } from "fs";
 import { promisify } from "util";
@@ -20,9 +19,7 @@ export const fetchPolicies = async function (): Promise<ClusterPolicy[]> {
   let policies: ClusterPolicy[] = [];
 
   for await (const input of inputs) {
-    if (isGitUrl(input)) {
-      // TODO:
-    } else if (isUrl(input)) {
+    if (isUrl(input)) {
       const response = await axios.get(input);
       if (response.status >= 200 && response.status < 300 && (response.data as string)?.length > 0) {
         const parsedPolicies = parsePolicyFile(response.data as string);

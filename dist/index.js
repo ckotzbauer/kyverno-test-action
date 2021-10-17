@@ -11202,24 +11202,6 @@ module.exports = (flag, argv) => {
 
 /***/ }),
 
-/***/ 6363:
-/***/ ((module) => {
-
-/*!
- * is-git-url <https://github.com/jonschlinkert/is-git-url>
- *
- * Copyright (c) 2014-2015, 2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-
-module.exports = function isGitUrl(str) {
-  var regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/;
-  return regex.test(str);
-};
-
-
-/***/ }),
-
 /***/ 3287:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -24589,7 +24571,6 @@ const core = __importStar(__nccwpck_require__(2186));
 const glob = __importStar(__nccwpck_require__(8090));
 const io = __importStar(__nccwpck_require__(7436));
 const is_url_1 = __importDefault(__nccwpck_require__(239));
-const is_git_url_1 = __importDefault(__nccwpck_require__(6363));
 const axios_1 = __importDefault(__nccwpck_require__(6545));
 const fs_1 = __nccwpck_require__(5747);
 const util_1 = __nccwpck_require__(1669);
@@ -24609,10 +24590,7 @@ const fetchPolicies = function () {
         try {
             for (var inputs_1 = __asyncValues(inputs), inputs_1_1; inputs_1_1 = yield inputs_1.next(), !inputs_1_1.done;) {
                 const input = inputs_1_1.value;
-                if ((0, is_git_url_1.default)(input)) {
-                    // TODO:
-                }
-                else if ((0, is_url_1.default)(input)) {
+                if ((0, is_url_1.default)(input)) {
                     const response = yield axios_1.default.get(input);
                     if (response.status >= 200 && response.status < 300 && ((_c = response.data) === null || _c === void 0 ? void 0 : _c.length) > 0) {
                         const parsedPolicies = (0, exports.parsePolicyFile)(response.data);
