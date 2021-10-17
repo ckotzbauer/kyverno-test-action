@@ -92,8 +92,10 @@ jobs:
       - name: List changes
         id: list-changed
         run: |
-          changed=$(ct list-changed)
-          echo "::set-output name=charts::$changed"
+          changed=$(ct list-changed --target-branch main)
+          arr=(`echo $changed`)
+          json=$(echo "${arr[@]}" | jq -ncR 'inputs | split(" ")')
+          echo "::set-output name=charts::$json"
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
@@ -107,7 +109,7 @@ jobs:
       fail-fast: false
       matrix:
         chart:
-        - ${{ needs.list-changed.outputs.charts }}
+        - ${{ fromJson(needs.list-changed.outputs.charts) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
