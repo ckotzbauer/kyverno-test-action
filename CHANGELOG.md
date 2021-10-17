@@ -1,3 +1,10 @@
+## Version 1.0.2 (2021-10-17)
+
+### Bug fixes
+
+* [[`cf708ad4`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/cf708ad4)] - **fix**: prefix resources with kind
+
+
 ## Version 1.0.1 (2021-10-17)
 
 ### Documentation
