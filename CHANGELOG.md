@@ -1,3 +1,10 @@
+## Version 1.0.1 (2021-10-17)
+
+### Documentation
+
+* [[`fa51e8c9`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/fa51e8c9)] - **doc**: fix
+
+
 ## Version 1.0.0 (2021-10-17)
 
 ### Features and improvements
