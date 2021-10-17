@@ -4,7 +4,7 @@ import * as io from "@actions/io";
 import * as exec from "@actions/exec";
 import { readFile, writeFile } from "fs";
 import { promisify } from "util";
-import { loadAll } from "js-yaml";
+import { loadAll, dump } from "js-yaml";
 import { Resource } from "./types";
 
 export const fetchResources = async function (): Promise<Resource[]> {
@@ -18,8 +18,9 @@ export const fetchResources = async function (): Promise<Resource[]> {
   const files = await globber.glob();
   for await (const file of files) {
     const content = (await promisify(readFile)(file, "utf-8")).toString();
-    resourceContents.push(content);
-    resources = [...resources, ...parseResource(content)];
+    const parsedResources = parseResource(content);
+    resources = [...resources, ...parsedResources];
+    resourceContents.push(...parsedResources.map((p) => dump(p, { indent: 2 })));
   }
 
   if (resourceFiles && files.length === 0) {
@@ -42,8 +43,9 @@ export const fetchResources = async function (): Promise<Resource[]> {
     const output = await exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: true });
 
     if (output.exitCode === 0) {
-      resourceContents.push(output.stdout);
-      resources = [...resources, ...parseResource(output.stdout)];
+      const parsedResources = parseResource(output.stdout);
+      resources = [...resources, ...parsedResources];
+      resourceContents.push(...parsedResources.map((p) => dump(p, { indent: 2 })));
     } else {
       core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
     }
@@ -62,5 +64,10 @@ export const fetchResources = async function (): Promise<Resource[]> {
 };
 
 export const parseResource = function (content: string): Resource[] {
-  return loadAll(content) as Resource[];
+  const resources = loadAll(content) as Resource[];
+  for (const resource of resources) {
+    resource.metadata.name = `${resource.kind}-${resource.metadata.name}`;
+  }
+
+  return resources;
 };

@@ -24467,8 +24467,9 @@ const fetchResources = function () {
             for (var files_1 = __asyncValues(files), files_1_1; files_1_1 = yield files_1.next(), !files_1_1.done;) {
                 const file = files_1_1.value;
                 const content = (yield (0, util_1.promisify)(fs_1.readFile)(file, "utf-8")).toString();
-                resourceContents.push(content);
-                resources = [...resources, ...(0, exports.parseResource)(content)];
+                const parsedResources = (0, exports.parseResource)(content);
+                resources = [...resources, ...parsedResources];
+                resourceContents.push(...parsedResources.map((p) => (0, js_yaml_1.dump)(p, { indent: 2 })));
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -24494,8 +24495,9 @@ const fetchResources = function () {
             const values = valueFiles.map((f) => ["-f", f]).flat();
             const output = yield exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: true });
             if (output.exitCode === 0) {
-                resourceContents.push(output.stdout);
-                resources = [...resources, ...(0, exports.parseResource)(output.stdout)];
+                const parsedResources = (0, exports.parseResource)(output.stdout);
+                resources = [...resources, ...parsedResources];
+                resourceContents.push(...parsedResources.map((p) => (0, js_yaml_1.dump)(p, { indent: 2 })));
             }
             else {
                 core.error(`Helm exited with code ${output.exitCode} and output: ${output.stdout}`);
@@ -24514,7 +24516,11 @@ const fetchResources = function () {
 };
 exports.fetchResources = fetchResources;
 const parseResource = function (content) {
-    return (0, js_yaml_1.loadAll)(content);
+    const resources = (0, js_yaml_1.loadAll)(content);
+    for (const resource of resources) {
+        resource.metadata.name = `${resource.kind}-${resource.metadata.name}`;
+    }
+    return resources;
 };
 exports.parseResource = parseResource;
 
