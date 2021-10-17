@@ -126,6 +126,40 @@ jobs:
             policies/security.yaml
 ```
 
+
+## Example 3 (Use policies from Git)
+
+```yaml
+jobs:
+  kyverno-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/checkout@v2
+        name: Checkout kyverno-policies
+        with:
+          repository: kyverno/policies
+          ref: main
+          path: kyverno-policies
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+
+      - name: Test against Kyverno policies
+        uses: ckotzbauer/kyverno-test-action@v1
+        with:
+          chart-dir: charts/my-awesome-helm-chart
+          value-files: |
+            environments/prod.yaml
+          policy-files: |
+            kyverno-policies/best-practices/require_probes/require_probes.yaml
+            kyverno-policies/best-practices/disallow-empty-ingress-host/disallow_empty_ingress_host.yaml
+            kyverno-policies/best-practices/require_drop_all/require_drop_all.yaml
+```
+
+
 ## License
 
 [MIT](LICENSE)
