@@ -24064,25 +24064,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.setupKyvernoCli = exports.findKyverno = exports.downloadKyverno = exports.walkSync = exports.getStableKyvernoVersion = exports.getKyvernoDownloadURL = exports.getExecutableExtension = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const fs = __importStar(__nccwpck_require__(5747));
-const os = __importStar(__nccwpck_require__(2087));
 const path = __importStar(__nccwpck_require__(5622));
 const semver = __importStar(__nccwpck_require__(1383));
 const toolCache = __importStar(__nccwpck_require__(7784));
 const graphql_1 = __nccwpck_require__(8467);
+const util_1 = __nccwpck_require__(2629);
 const kyvernoToolName = "kyverno";
 const stableKyvernoVersion = "v1.4.3";
 const latestKyvernoVersion = "1.*";
 const kyvernoAllReleasesUrl = "https://api.github.com/repos/kyverno/kyverno/releases";
 function getExecutableExtension() {
-    if (os.type().match(/^Win/)) {
+    if ((0, util_1.osType)().match(/^Win/)) {
         return ".exe";
     }
     return "";
 }
 exports.getExecutableExtension = getExecutableExtension;
 function getKyvernoDownloadURL(version) {
-    switch (os.type()) {
+    switch ((0, util_1.osType)()) {
         case "Linux":
             // eslint-disable-next-line max-len
             return `https://github.com/kyverno/kyverno/releases/download/${version}/kyverno-cli_${version}_linux_x86_64.tar.gz`;
@@ -24099,7 +24098,7 @@ function getStableKyvernoVersion() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const downloadPath = yield toolCache.downloadTool(kyvernoAllReleasesUrl);
-            const responseArray = JSON.parse(fs.readFileSync(downloadPath, "utf8").toString().trim());
+            const responseArray = JSON.parse((0, util_1.readFileSync)(downloadPath, "utf8").toString().trim());
             let latestKyvernoVersion = semver.clean(stableKyvernoVersion);
             for (const response of responseArray) {
                 if (response && response.tag_name) {
@@ -24125,10 +24124,10 @@ function getStableKyvernoVersion() {
 }
 exports.getStableKyvernoVersion = getStableKyvernoVersion;
 const walkSync = (dir, filelist, fileToFind) => {
-    const files = fs.readdirSync(dir);
+    const files = (0, util_1.readdirSync)(dir);
     filelist = filelist || [];
     for (const file of files) {
-        if (fs.statSync(path.join(dir, file)).isDirectory()) {
+        if ((0, util_1.statSync)(path.join(dir, file)).isDirectory()) {
             filelist = (0, exports.walkSync)(path.join(dir, file), filelist, fileToFind);
         }
         else {
@@ -24157,10 +24156,10 @@ function downloadKyverno(version) {
             catch (exception) {
                 throw new Error(`Failed to download Kyverno from location ${downloadUrl}`);
             }
-            fs.chmodSync(kyvernoDownloadPath, "777");
+            (0, util_1.chmodSync)(kyvernoDownloadPath, "777");
             core.info(`Extract kyverno archive: ${kyvernoDownloadPath}`);
             let extractedKyvernoPath;
-            if (os.type() !== "Windows_NT") {
+            if ((0, util_1.osType)() !== "Windows_NT") {
                 extractedKyvernoPath = yield toolCache.extractTar(kyvernoDownloadPath);
             }
             else {
@@ -24172,7 +24171,7 @@ function downloadKyverno(version) {
         if (!kyvernopath) {
             throw new Error(`Kyverno executable not found in path ${cachedToolpath}`);
         }
-        fs.chmodSync(kyvernopath, "777");
+        (0, util_1.chmodSync)(kyvernopath, "777");
         return kyvernopath;
     });
 }
@@ -24215,7 +24214,7 @@ function isValidVersion(version) {
     return !version.includes("rc");
 }
 function findKyverno(rootFolder) {
-    fs.chmodSync(rootFolder, "777");
+    (0, util_1.chmodSync)(rootFolder, "777");
     const filelist = [];
     (0, exports.walkSync)(rootFolder, filelist, kyvernoToolName + getExecutableExtension());
     if (!filelist || filelist.length === 0) {
@@ -24677,6 +24676,58 @@ const parsePolicyFile = function (content) {
     return policies;
 };
 exports.parsePolicyFile = parsePolicyFile;
+
+
+/***/ }),
+
+/***/ 2629:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.statSync = exports.readdirSync = exports.chmodSync = exports.readFileSync = exports.osType = void 0;
+const fs = __importStar(__nccwpck_require__(5747));
+const os = __importStar(__nccwpck_require__(2087));
+function osType() {
+    return os.type();
+}
+exports.osType = osType;
+function readFileSync(path, options) {
+    return fs.readFileSync(path, options);
+}
+exports.readFileSync = readFileSync;
+function chmodSync(path, mode) {
+    fs.chmodSync(path, mode);
+}
+exports.chmodSync = chmodSync;
+function readdirSync(path, options) {
+    return fs.readdirSync(path, options);
+}
+exports.readdirSync = readdirSync;
+function statSync(path, options) {
+    return fs.statSync(path, options);
+}
+exports.statSync = statSync;
 
 
 /***/ }),

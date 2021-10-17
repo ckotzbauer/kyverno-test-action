@@ -1,26 +1,26 @@
 import * as core from "@actions/core";
-import * as fs from "fs";
-import * as os from "os";
 import * as path from "path";
 import * as semver from "semver";
 
 import * as toolCache from "@actions/tool-cache";
 import { graphql } from "@octokit/graphql";
+import { chmodSync, osType, readdirSync, readFileSync, statSync } from "./util";
 
 const kyvernoToolName = "kyverno";
 const stableKyvernoVersion = "v1.4.3";
 const latestKyvernoVersion = "1.*";
 const kyvernoAllReleasesUrl = "https://api.github.com/repos/kyverno/kyverno/releases";
 
+
 export function getExecutableExtension(): string {
-  if (os.type().match(/^Win/)) {
+  if (osType().match(/^Win/)) {
     return ".exe";
   }
   return "";
 }
 
 export function getKyvernoDownloadURL(version: string): string {
-  switch (os.type()) {
+  switch (osType()) {
     case "Linux":
       // eslint-disable-next-line max-len
       return `https://github.com/kyverno/kyverno/releases/download/${version}/kyverno-cli_${version}_linux_x86_64.tar.gz`;
@@ -38,7 +38,7 @@ export function getKyvernoDownloadURL(version: string): string {
 export async function getStableKyvernoVersion(): Promise<string> {
   try {
     const downloadPath = await toolCache.downloadTool(kyvernoAllReleasesUrl);
-    const responseArray = JSON.parse(fs.readFileSync(downloadPath, "utf8").toString().trim());
+    const responseArray = JSON.parse(readFileSync(downloadPath, "utf8").toString().trim());
     let latestKyvernoVersion = semver.clean(stableKyvernoVersion);
     for (const response of responseArray) {
       if (response && response.tag_name) {
@@ -64,10 +64,10 @@ export async function getStableKyvernoVersion(): Promise<string> {
 }
 
 export const walkSync = (dir: string, filelist: string[], fileToFind: string): string[] => {
-  const files = fs.readdirSync(dir);
+  const files = readdirSync(dir);
   filelist = filelist || [];
   for (const file of files) {
-    if (fs.statSync(path.join(dir, file)).isDirectory()) {
+    if (statSync(path.join(dir, file)).isDirectory()) {
       filelist = walkSync(path.join(dir, file), filelist, fileToFind);
     } else {
       core.debug(file);
@@ -94,10 +94,10 @@ export async function downloadKyverno(version: string): Promise<string> {
       throw new Error(`Failed to download Kyverno from location ${downloadUrl}`);
     }
 
-    fs.chmodSync(kyvernoDownloadPath, "777");
+    chmodSync(kyvernoDownloadPath, "777");
     core.info(`Extract kyverno archive: ${kyvernoDownloadPath}`);
     let extractedKyvernoPath: string;
-    if (os.type() !== "Windows_NT") {
+    if (osType() !== "Windows_NT") {
       extractedKyvernoPath = await toolCache.extractTar(kyvernoDownloadPath);
     } else {
       extractedKyvernoPath = await toolCache.extractZip(kyvernoDownloadPath);
@@ -111,7 +111,7 @@ export async function downloadKyverno(version: string): Promise<string> {
     throw new Error(`Kyverno executable not found in path ${cachedToolpath}`);
   }
 
-  fs.chmodSync(kyvernopath, "777");
+  chmodSync(kyvernopath, "777");
   return kyvernopath;
 }
 
@@ -159,7 +159,7 @@ function isValidVersion(version: string): boolean {
 }
 
 export function findKyverno(rootFolder: string): string {
-  fs.chmodSync(rootFolder, "777");
+  chmodSync(rootFolder, "777");
   const filelist: string[] = [];
   walkSync(rootFolder, filelist, kyvernoToolName + getExecutableExtension());
   if (!filelist || filelist.length === 0) {
