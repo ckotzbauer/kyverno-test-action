@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/axios": "0.14.0",
     "@types/is-url": "1.2.30",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/js-yaml": "4.0.5",
     "@types/node": "16.11.17",
     "@types/semver": "7.3.9",
