@@ -8,8 +8,7 @@ import { loadAll, dump } from "js-yaml";
 import { Resource } from "./types";
 
 export const fetchResources = async function (): Promise<Resource[]> {
-  const resourceFiles = core
-    .getInput("resource-files", { required: false });
+  const resourceFiles = core.getInput("resource-files", { required: false });
   await io.mkdirP("/tmp/kyverno-test");
   const resourceContents: string[] = [];
   let resources: Resource[] = [];

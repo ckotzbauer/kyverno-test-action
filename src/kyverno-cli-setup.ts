@@ -11,7 +11,6 @@ const stableKyvernoVersion = "v1.4.3";
 const latestKyvernoVersion = "1.*";
 const kyvernoAllReleasesUrl = "https://api.github.com/repos/kyverno/kyverno/releases";
 
-
 export function getExecutableExtension(): string {
   if (osType().match(/^Win/)) {
     return ".exe";
