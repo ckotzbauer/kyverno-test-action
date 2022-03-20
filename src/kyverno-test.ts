@@ -33,9 +33,9 @@ const generateTestFile = async function (policies: ClusterPolicy[], resources: R
   }
 
   const testContent = dump(test, { indent: 2 });
-  core.debug("Generated test.yaml:");
+  core.debug("Generated kyverno-test.yaml:");
   core.debug(testContent);
-  await promisify(writeFile)("/tmp/kyverno-test/test.yaml", testContent);
+  await promisify(writeFile)("/tmp/kyverno-test/kyverno-test.yaml", testContent);
 };
 
 export const executeTest = async function (policies: ClusterPolicy[], resources: Resource[]): Promise<void> {
