@@ -26,7 +26,7 @@ jobs:
     needs: [release]
     runs-on: ubuntu-latest
     steps:
-      - name: Update v1 tag
+      - name: Update v2 tag
         run: |
-          git tag -fa v1 -m "Update v1 tag"
-          git push origin v1 --force
+          git tag -fa v2 -m "Update v2 tag"
+          git push origin v2 --force
