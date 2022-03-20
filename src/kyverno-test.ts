@@ -24,7 +24,8 @@ const generateTestFile = async function (policies: ClusterPolicy[], resources: R
             policy: policy.metadata.name,
             rule: rule.name,
             resource: resource.metadata.name,
-            status: "pass",
+            kind: resource.kind,
+            result: "pass",
           });
         }
       }

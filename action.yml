@@ -9,7 +9,7 @@ inputs:
   kyverno-version:
     required: false
     description: 'Kyverno version'
-    default: v1.4.3
+    default: v1.6.1
   resource-files:
     required: false
     description: 'YAML files to test'
@@ -26,5 +26,5 @@ inputs:
     required: true
     description: 'Kyverno-Policy-Files'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

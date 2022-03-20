@@ -49,6 +49,7 @@ export interface Test {
     policy: string;
     rule: string;
     resource: string;
-    status: string;
+    kind: string;
+    result: string;
   }>;
 }
