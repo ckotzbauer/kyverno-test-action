@@ -7,15 +7,10 @@ on:
 
 jobs:
   update-snyk:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3.1.0
-        with:
-          node-version: '16'
-      - uses: snyk/actions/setup@master
-      - name: Snyk monitor
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk monitor
+    uses: ckotzbauer/actions-toolkit/.github/workflows/toolkit-scan-snyk.yml@0.12.0
+    with:
+      install-node: true
+      node-version: '16'
+      scan-commands: snyk monitor
+    secrets:
+      token: ${{ secrets.SNYK_TOKEN }}
