@@ -9,7 +9,7 @@
 ```yaml
 - uses: azure/setup-helm@v1
 - name: Test chart against Kyverno policies
-  uses: ckotzbauer/kyverno-test-action@v1
+  uses: ckotzbauer/kyverno-test-action@v2
   with:
     chart-dir: charts/my-awesome-helm-chart
     value-files: |
@@ -60,7 +60,7 @@ jobs:
         uses: azure/setup-helm@v1
 
       - name: Test against Kyverno policies
-        uses: ckotzbauer/kyverno-test-action@v1
+        uses: ckotzbauer/kyverno-test-action@v2
         with:
           chart-dir: charts/my-awesome-helm-chart
           value-files: |
@@ -118,7 +118,7 @@ jobs:
         uses: azure/setup-helm@v1
 
       - name: Test against Kyverno policies
-        uses: ckotzbauer/kyverno-test-action@v1
+        uses: ckotzbauer/kyverno-test-action@v2
         with:
           chart-dir: "${{ matrix.chart }}"
           value-files: |
@@ -150,7 +150,7 @@ jobs:
         uses: azure/setup-helm@v1
 
       - name: Test against Kyverno policies
-        uses: ckotzbauer/kyverno-test-action@v1
+        uses: ckotzbauer/kyverno-test-action@v2
         with:
           chart-dir: charts/my-awesome-helm-chart
           value-files: |
