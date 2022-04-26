@@ -25,6 +25,10 @@ inputs:
   policy-files:
     required: true
     description: 'Kyverno-Policy-Files'
+  debug:
+    required: false
+    default: "false"
+    description: 'Debug-Output'
 runs:
   using: 'node16'
   main: 'dist/index.js'
