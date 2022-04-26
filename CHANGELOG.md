@@ -1,3 +1,59 @@
+## Version 2.0.1 (2022-04-26)
+
+### Features and improvements
+
+* [[`ffe02c5c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ffe02c5c)] - **feat**: add debug parameter
+
+### Build and testing
+
+* [[`4103ff48`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4103ff48)] - **build**: use reusable-workflows [6]
+* [[`0f77ce3a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0f77ce3a)] - **build**: use reusable-workflows [5]
+* [[`bdcd9cc8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/bdcd9cc8)] - **build**: use reusable-workflows [4]
+* [[`db4d9983`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/db4d9983)] - **build**: use reusable-workflows [3]
+* [[`461ccde1`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/461ccde1)] - **build**: use reusable-workflows [2]
+* [[`186b82ec`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/186b82ec)] - **build**: use reusable-workflows [1]
+
+### Documentation
+
+* [[`a1ca0192`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a1ca0192)] - **doc**: use v2
+
+### Security
+
+* [[`95b6597f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/95b6597f)] - **security**: update node-fetch
+
+### Dependency updates
+
+* [[`1e5e2be8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1e5e2be8)] - **deps**: update typescript-eslint monorepo to v5.20.0
+* [[`8f322e77`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/8f322e77)] - **deps**: update dependency eslint to v8.14.0
+* [[`c4077a99`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/c4077a99)] - **deps**: update dependency @actions&#x2F;glob to v0.3.0
+* [[`c26ef26c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/c26ef26c)] - **deps**: update typescript-eslint monorepo to v5.19.0
+* [[`17a2d19e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/17a2d19e)] - **deps**: update dependency semver to v7.3.7
+* [[`5178a348`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/5178a348)] - **deps**: update dependency @vercel&#x2F;ncc to v0.33.4
+* [[`425fa539`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/425fa539)] - **deps**: update dependency @types&#x2F;node to v16.11.27
+* [[`102ef3fd`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/102ef3fd)] - **deps**: update actions&#x2F;setup-node action to v3.1.1
+* [[`81d97297`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/81d97297)] - **deps**: update typescript-eslint monorepo to v5.18.0
+* [[`bd18293c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/bd18293c)] - **deps**: update dependency eslint to v8.13.0
+* [[`e9e1a989`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e9e1a989)] - **deps**: update dependency semver to v7.3.6
+* [[`ca041649`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ca041649)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.12.1
+* [[`35ce5e3d`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/35ce5e3d)] - **deps**: update dependency prettier to v2.6.2
+* [[`47a84a6d`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/47a84a6d)] - **deps**: update typescript-eslint monorepo to v5.17.0
+* [[`af883278`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/af883278)] - **deps**: update actions&#x2F;setup-node action to v3.1.0
+* [[`0b0c0adc`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0b0c0adc)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.10.1
+* [[`0ae2fcf0`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0ae2fcf0)] - **deps**: update dependency ts-jest to v27.1.4
+* [[`60164db2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/60164db2)] - **deps**: update dependency prettier to v2.6.1 (#111)
+* [[`9867b303`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/9867b303)] - **deps**: update dependency typescript to v4.6.3 (#113)
+* [[`db158561`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/db158561)] - **deps**: update dependency eslint to v8.12.0 (#115)
+* [[`0d12d27e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0d12d27e)] - **deps**: update typescript-eslint monorepo to v5.16.0 (#116)
+* [[`92d3918a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/92d3918a)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.10.0
+* [[`388e68df`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/388e68df)] - **deps**: Bump pascalgn&#x2F;automerge-action
+* [[`87558288`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/87558288)] - **deps**: update ckotzbauer&#x2F;label-command-action action to v2
+
+### Common changes
+
+* [[`7f15092f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7f15092f)] - **chore**: remove dependabot [skip ci]
+* [[`d4892c92`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d4892c92)] - **chore**: update community-files [skip ci]
+
+
 ## Version 2.0.0 (2022-03-20)
 
 ### Features and improvements
