@@ -29,6 +29,7 @@
 | `chart-dir` | Helm-Chart directory | `false` | `""` |
 | `value-files` | List of Helm-Chart value files. | `false` | `""` |
 | `policy-files` | List of Kyverno policy files to apply. (See below) | `true` | `""` |
+| `debug` | Print more verbose outputs | `false` | `false` |
 
 **Note**: Either `resource-files` or `chart-dir` is mandatory.
 

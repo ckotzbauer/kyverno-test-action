@@ -38,8 +38,9 @@ export const fetchResources = async function (): Promise<Resource[]> {
   }
 
   if (chartDir) {
+    const debug = core.getBooleanInput("debug", { required: false });
     const values = valueFiles.map((f) => ["-f", f]).flat();
-    const output = await exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: true });
+    const output = await exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: !debug });
 
     if (output.exitCode === 0) {
       const parsedResources = parseResource(output.stdout);
