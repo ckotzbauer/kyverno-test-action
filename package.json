@@ -30,7 +30,7 @@
     "@actions/io": "1.1.2",
     "@actions/tool-cache": "1.7.2",
     "@octokit/graphql": "4.8.0",
-    "axios": "0.26.1",
+    "axios": "0.27.2",
     "is-url": "1.2.4",
     "semver": "7.3.7"
   },
