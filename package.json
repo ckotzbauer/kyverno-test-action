@@ -35,7 +35,7 @@
     "semver": "7.3.7"
   },
   "devDependencies": {
-    "@jest/types": "28.0.2",
+    "@jest/types": "28.1.0",
     "@types/axios": "0.14.0",
     "@types/is-url": "1.2.30",
     "@types/js-yaml": "4.0.5",
@@ -47,7 +47,7 @@
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
-    "jest": "28.0.3",
+    "jest": "28.1.0",
     "js-yaml": "4.1.0",
     "prettier": "2.6.2",
     "ts-jest": "28.0.1",
