@@ -28,7 +28,7 @@
     "@actions/exec": "1.1.1",
     "@actions/glob": "0.3.0",
     "@actions/io": "1.1.2",
-    "@actions/tool-cache": "1.7.2",
+    "@actions/tool-cache": "2.0.1",
     "@octokit/graphql": "4.8.0",
     "axios": "0.27.2",
     "is-url": "1.2.4",
