@@ -117,7 +117,7 @@ export async function downloadKyverno(version: string): Promise<string> {
 async function getLatestKyvernoVersion(): Promise<string> {
   const token = core.getInput("token", { required: true });
   try {
-    const { repository } = await graphql(
+    const { repository } = await graphql<{ repository: any }>(
       `
         {
           repository(name: "kyverno", owner: "kyverno") {
