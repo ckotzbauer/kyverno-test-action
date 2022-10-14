@@ -29,7 +29,7 @@
     "@actions/glob": "0.3.0",
     "@actions/io": "1.1.2",
     "@actions/tool-cache": "2.0.1",
-    "@octokit/graphql": "5.0.1",
+    "@octokit/graphql": "5.0.3",
     "axios": "1.1.2",
     "is-url": "1.2.4",
     "semver": "7.3.8"
