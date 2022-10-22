@@ -96,9 +96,9 @@ jobs:
           changed=$(ct list-changed --target-branch main)
           arr=(`echo $changed`)
           json=$(echo "${arr[@]}" | jq -ncR 'inputs | split(" ")')
-          echo "::set-output name=charts::$json"
+          echo "chartsJson=$json" >> $GITHUB_OUTPUT
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
 
