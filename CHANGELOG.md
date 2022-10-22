@@ -1,3 +1,167 @@
+## Version 2.0.2 (2022-10-22)
+
+### Features and improvements
+
+* [[`e9b072c8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e9b072c8)] - **feat**: update to kyverno@1.6.2
+
+### Bug fixes
+
+* [[`67f180f7`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/67f180f7)] - **fix**: declare type
+
+### Build and testing
+
+* [[`3281ef2c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3281ef2c)] - **build**: replace jest-types again
+
+### Documentation
+
+* [[`c089991f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/c089991f)] - **docs**: use new GITHUB_OUTPUT
+
+### Dependency updates
+
+* [[`06586562`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/06586562)] - **deps**: update jest monorepo
+* [[`62152ab7`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/62152ab7)] - **deps**: update dependency eslint to v8.26.0
+* [[`c89745d2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/c89745d2)] - **deps**: update typescript-eslint monorepo to v5.40.1
+* [[`4474272c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4474272c)] - **deps**: update dependency @types&#x2F;node to v16.11.68
+* [[`f29b8d61`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f29b8d61)] - **deps**: update dependency @octokit&#x2F;graphql to v5.0.4
+* [[`6b21b772`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/6b21b772)] - **deps**: update dependency @types&#x2F;node to v16.11.66
+* [[`f312ee1d`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f312ee1d)] - **deps**: update dependency axios to v1.1.3
+* [[`0498bd4a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0498bd4a)] - **deps**: update typescript-eslint monorepo to v5.40.0
+* [[`d8a38a8a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d8a38a8a)] - **deps**: update dependency jest to v29.2.0
+* [[`9134ad86`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/9134ad86)] - **deps**: update dependency @types&#x2F;node to v16.11.65
+* [[`7dd516d1`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7dd516d1)] - **deps**: update dependency @octokit&#x2F;graphql to v5.0.3
+* [[`3daaff91`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3daaff91)] - **deps**: update actions&#x2F;setup-node action to v3.5.1
+* [[`b4fdf2ad`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/b4fdf2ad)] - **deps**: update typescript-eslint monorepo to v5.39.0
+* [[`17c4ebeb`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/17c4ebeb)] - **deps**: update dependency eslint to v8.25.0
+* [[`fcc476e2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/fcc476e2)] - **deps**: update dependency semver to v7.3.8
+* [[`6b552444`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/6b552444)] - **deps**: update dependency @types&#x2F;node to v16.11.64
+* [[`7ebc4d9f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7ebc4d9f)] - **deps**: update dependency @types&#x2F;jest to v29.1.2
+* [[`42dadaba`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/42dadaba)] - **deps**: update dependency axios to v1
+* [[`cae80ad7`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/cae80ad7)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.21.3
+* [[`1c48b528`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1c48b528)] - **deps**: update jest monorepo
+* [[`edf985d0`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/edf985d0)] - **deps**: update dependency @actions&#x2F;core to v1.10.0
+* [[`a74597b7`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a74597b7)] - **deps**: update dependency typescript to v4.8.4
+* [[`7947f284`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7947f284)] - **deps**: update actions&#x2F;setup-node action to v3.5.0
+* [[`62135393`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/62135393)] - **deps**: update typescript-eslint monorepo to v5.38.1
+* [[`93574e80`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/93574e80)] - **deps**: update dependency ts-jest to v29.0.3
+* [[`06983626`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/06983626)] - **deps**: update dependency @types&#x2F;node to v16.11.62
+* [[`58195339`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/58195339)] - **deps**: update dependency ts-jest to v29.0.2
+* [[`a14b8296`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a14b8296)] - **deps**: update typescript-eslint monorepo to v5.38.0
+* [[`6a8a82b8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/6a8a82b8)] - **deps**: update dependency eslint to v8.24.0
+* [[`e47c8e97`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e47c8e97)] - **deps**: update dependency @types&#x2F;node to v16.11.60
+* [[`eaa632b2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/eaa632b2)] - **deps**: update typescript-eslint monorepo to v5.37.0
+* [[`2d6ab489`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/2d6ab489)] - **deps**: update dependency ts-jest to v29.0.1
+* [[`a75afc99`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a75afc99)] - **deps**: update dependency eslint to v8.23.1
+* [[`72afa45d`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/72afa45d)] - **deps**: update dependency @types&#x2F;node to v16.11.59
+* [[`bb7bb47a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/bb7bb47a)] - **deps**: update dependency @types&#x2F;jest to v29.0.3
+* [[`887d5d51`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/887d5d51)] - **deps**: update dependency @types&#x2F;jest to v29.0.1
+* [[`34700718`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/34700718)] - **deps**: update dependency jest to v29.0.3
+* [[`3b92455e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3b92455e)] - **deps**: update dependency typescript to v4.8.3
+* [[`c0815383`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/c0815383)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.20.0
+* [[`472c7c7b`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/472c7c7b)] - **deps**: update typescript-eslint monorepo to v5.36.2
+* [[`0448a99f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0448a99f)] - **deps**: update dependency ts-jest to v29.0.0
+* [[`9323717b`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/9323717b)] - **deps**: update dependency @types&#x2F;node to v16.11.58
+* [[`e1969800`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e1969800)] - **deps**: update dependency jest to v29.0.2
+* [[`b4647962`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/b4647962)] - **deps**: update typescript-eslint monorepo to v5.36.1
+* [[`fbcbbd00`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/fbcbbd00)] - **deps**: updated jest
+* [[`dafd37aa`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/dafd37aa)] - **deps**: update dependency jest to v29
+* [[`9a4b0038`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/9a4b0038)] - **deps**: update typescript-eslint monorepo to v5.35.1
+* [[`2bc5ec6e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/2bc5ec6e)] - **deps**: update dependency eslint to v8.23.0
+* [[`eb384209`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/eb384209)] - **deps**: update dependency @types&#x2F;node to v16.11.56
+* [[`84fbfb85`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/84fbfb85)] - **deps**: update dependency @types&#x2F;jest to v28.1.8
+* [[`5051e921`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/5051e921)] - **deps**: update dependency typescript to v4.8.2
+* [[`1f8bb49b`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1f8bb49b)] - **deps**: update typescript-eslint monorepo to v5.33.1
+* [[`1bdae2ec`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1bdae2ec)] - **deps**: update dependency ts-jest to v28.0.8
+* [[`d91a113f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d91a113f)] - **deps**: update dependency @types&#x2F;node to v16.11.51
+* [[`244815d9`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/244815d9)] - **deps**: update dependency @types&#x2F;jest to v28.1.7
+* [[`4e327485`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4e327485)] - **deps**: update dependency @octokit&#x2F;graphql to v5.0.1
+* [[`7698a67b`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7698a67b)] - **deps**: update dependency eslint to v8.22.0
+* [[`48193410`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/48193410)] - **deps**: update dependency @types&#x2F;semver to v7.3.12
+* [[`06b3a8a5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/06b3a8a5)] - **deps**: update typescript-eslint monorepo to v5.33.0
+* [[`15fbf292`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/15fbf292)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.19.0
+* [[`a51d875f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a51d875f)] - **deps**: update dependency @types&#x2F;node to v16.11.48
+* [[`ac486c78`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ac486c78)] - **deps**: update dependency @actions&#x2F;core to v1.9.1
+* [[`fdd8e75a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/fdd8e75a)] - **deps**: update typescript-eslint monorepo to v5.32.0
+* [[`136a2a38`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/136a2a38)] - **deps**: update dependency eslint to v8.21.0
+* [[`724baca5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/724baca5)] - **deps**: update dependency @types&#x2F;node to v16.11.47
+* [[`14d1091f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/14d1091f)] - **deps**: update typescript-eslint monorepo to v5.31.0
+* [[`e2620851`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e2620851)] - **deps**: update dependency @types&#x2F;node to v16.11.46
+* [[`cf59ee8f`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/cf59ee8f)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.18.0
+* [[`955fc484`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/955fc484)] - **deps**: update typescript-eslint monorepo to v5.30.7
+* [[`972ce281`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/972ce281)] - **deps**: update dependency ts-jest to v28.0.7
+* [[`cd5ba385`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/cd5ba385)] - **deps**: update dependency eslint to v8.20.0
+* [[`bff9ecb9`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/bff9ecb9)] - **deps**: update actions&#x2F;setup-node action to v3.4.1
+* [[`13916113`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/13916113)] - **deps**: update jest monorepo
+* [[`9858fca8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/9858fca8)] - **deps**: update dependency @types&#x2F;node to v16.11.45
+* [[`b98eab91`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/b98eab91)] - **deps**: update typescript-eslint monorepo to v5.30.6
+* [[`08a3db24`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/08a3db24)] - **deps**: update dependency ts-jest to v28.0.6
+* [[`cb1525cf`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/cb1525cf)] - **deps**: update typescript-eslint monorepo to v5.30.5
+* [[`f6ba2d1e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f6ba2d1e)] - **deps**: update dependency @octokit&#x2F;graphql to v5
+* [[`a7af9e16`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a7af9e16)] - **deps**: update dependency @types&#x2F;node to v16.11.43
+* [[`40a82175`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/40a82175)] - **deps**: update typescript-eslint monorepo to v5.30.4
+* [[`0d46aef9`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0d46aef9)] - **deps**: update dependency eslint to v8.19.0
+* [[`eb214cc4`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/eb214cc4)] - **deps**: update dependency eslint-plugin-prettier to v4.2.1
+* [[`5a9e70ef`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/5a9e70ef)] - **deps**: update typescript-eslint monorepo to v5.30.3
+* [[`8803c968`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/8803c968)] - **deps**: update jest monorepo
+* [[`f95ea094`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f95ea094)] - **deps**: update dependency @types&#x2F;node to v16.11.42
+* [[`d5510a5a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d5510a5a)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.17.0
+* [[`09e62e7c`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/09e62e7c)] - **deps**: update typescript-eslint monorepo to v5.29.0
+* [[`a1f3a172`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a1f3a172)] - **deps**: update dependency @types&#x2F;jest to v28.1.3
+* [[`d6c1ad19`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d6c1ad19)] - **deps**: update typescript-eslint monorepo to v5.28.0
+* [[`244c1400`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/244c1400)] - **deps**: update dependency prettier to v2.7.1
+* [[`5cb45156`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/5cb45156)] - **deps**: update dependency eslint to v8.18.0
+* [[`7bf52460`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/7bf52460)] - **deps**: update dependency typescript to v4.7.4
+* [[`aa211153`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/aa211153)] - **deps**: update dependency @actions&#x2F;core to v1.9.0
+* [[`ed2e8122`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ed2e8122)] - **deps**: update dependency @types&#x2F;semver to v7.3.10
+* [[`4fd9d528`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4fd9d528)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.16.0
+* [[`a454a365`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a454a365)] - **deps**: update dependency ts-jest to v28.0.5
+* [[`0a2ee84a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/0a2ee84a)] - **deps**: update dependency @types&#x2F;node to v16.11.41
+* [[`a9cf9adf`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a9cf9adf)] - **deps**: update dependency @types&#x2F;jest to v28.1.2
+* [[`758b9d9e`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/758b9d9e)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.15.0
+* [[`ac3d0934`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ac3d0934)] - **deps**: update actions&#x2F;setup-node action to v3.3.0
+* [[`354802ae`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/354802ae)] - **deps**: update typescript-eslint monorepo to v5.27.1
+* [[`5388b6b3`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/5388b6b3)] - **deps**: update dependency jest to v28.1.1
+* [[`8ae087e3`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/8ae087e3)] - **deps**: update dependency @types&#x2F;node to v16.11.39
+* [[`49e357e6`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/49e357e6)] - **deps**: update typescript-eslint monorepo to v5.27.0
+* [[`a47a51f5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/a47a51f5)] - **deps**: update dependency eslint to v8.17.0
+* [[`f5cde03a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f5cde03a)] - **deps**: update dependency ts-jest to v28.0.4
+* [[`4e289414`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4e289414)] - **deps**: update dependency typescript to v4.7.3
+* [[`1e5aae11`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1e5aae11)] - **deps**: update dependency @types&#x2F;node to v16.11.38
+* [[`eebb5585`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/eebb5585)] - **deps**: update typescript-eslint monorepo to v5.26.0
+* [[`d201e063`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d201e063)] - **deps**: update dependency typescript to v4.7.2
+* [[`f96b3964`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f96b3964)] - **deps**: update dependency @vercel&#x2F;ncc to v0.34.0
+* [[`d3313f07`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d3313f07)] - **deps**: update dependency ts-jest to v28.0.3
+* [[`afb80920`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/afb80920)] - **deps**: update dependency eslint to v8.16.0
+* [[`4b6ffdf5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/4b6ffdf5)] - **deps**: update typescript-eslint monorepo to v5.25.0
+* [[`ae9e8738`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ae9e8738)] - **deps**: update actions&#x2F;setup-node action to v3.2.0
+* [[`04a108d5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/04a108d5)] - **deps**: update dependency @types&#x2F;node to v16.11.36
+* [[`e19944e8`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e19944e8)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.14.2
+* [[`e46ded72`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e46ded72)] - **deps**: update typescript-eslint monorepo to v5.23.0
+* [[`046248c7`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/046248c7)] - **deps**: update dependency @types&#x2F;node to v16.11.35
+* [[`e722c102`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e722c102)] - **deps**: update dependency @actions&#x2F;core to v1.8.2
+* [[`3baed1c2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3baed1c2)] - **deps**: update dependency @actions&#x2F;tool-cache to v2
+* [[`1764395a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1764395a)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.14.1
+* [[`dca594db`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/dca594db)] - **deps**: update dependency ts-jest to v28.0.2
+* [[`de80d8aa`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/de80d8aa)] - **deps**: update typescript-eslint monorepo to v5.22.0
+* [[`680c86ce`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/680c86ce)] - **deps**: update jest monorepo to v28.1.0
+* [[`3a2f99b5`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3a2f99b5)] - **deps**: update dependency eslint to v8.15.0
+* [[`2a7b6f16`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/2a7b6f16)] - **deps**: update dependency @actions&#x2F;core to v1.8.0
+* [[`35aa60b2`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/35aa60b2)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.14.0
+* [[`ad24661d`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/ad24661d)] - **deps**: update dependency ts-jest to v28.0.1
+* [[`870b7d81`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/870b7d81)] - **deps**: update dependency @types&#x2F;node to v16.11.33
+* [[`d5cecc18`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/d5cecc18)] - **deps**: fix jest 28 update
+* [[`1a9c091a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/1a9c091a)] - **deps**: update typescript-eslint monorepo to v5.21.0
+* [[`32385a28`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/32385a28)] - **deps**: update dependency axios to v0.27.2
+* [[`f6cac95a`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/f6cac95a)] - **deps**: update dependency @actions&#x2F;core to v1.7.0
+* [[`e4b6e8ef`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/e4b6e8ef)] - **deps**: update ckotzbauer&#x2F;actions-toolkit action to v0.13.0
+* [[`b2bc75bd`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/b2bc75bd)] - **deps**: update dependency typescript to v4.6.4
+* [[`55db2787`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/55db2787)] - **deps**: update dependency @types&#x2F;node to v16.11.32
+* [[`3d2cc3b3`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/3d2cc3b3)] - **deps**: update dependency jest to v28
+
+### Common changes
+
+* [[`259c37d1`](https://github.com/ckotzbauer&#x2F;kyverno-test-action/commit/259c37d1)] - **chore**: new dist compilation
+
+
 ## Version 2.0.1 (2022-04-26)
 
 ### Features and improvements
