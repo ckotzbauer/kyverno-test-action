@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    uses: ckotzbauer/actions-toolkit/.github/workflows/toolkit-build-test.yml@0.29.0
+    uses: ckotzbauer/actions-toolkit/.github/workflows/toolkit-build-test.yml@0.30.2
     with:
       install-node: true
       build-commands: |
