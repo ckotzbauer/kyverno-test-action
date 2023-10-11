@@ -27629,6 +27629,8 @@ const fetchResources = function () {
         if (resourceFiles && files.length === 0) {
             core.warning(`No files resolved for input: ${resourceFiles}`);
         }
+
+        const apiVersions = core.getInput("api-versions", {required: false});
         const chartDir = core.getInput("chart-dir", { required: false });
         const valueFiles = core
             .getInput("value-files", { required: false })
@@ -27641,7 +27643,7 @@ const fetchResources = function () {
         if (chartDir) {
             const debug = core.getBooleanInput("debug", { required: false });
             const values = valueFiles.map((f) => ["-f", f]).flat();
-            const output = yield exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: !debug });
+            const output = yield exec.getExecOutput("helm", ["template", chartDir, apiVersions, ...values], { silent: !debug });
             if (output.exitCode === 0) {
                 const parsedResources = (0, exports.parseResource)(output.stdout);
                 resources = [...resources, ...parsedResources];

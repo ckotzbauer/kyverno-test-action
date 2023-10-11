@@ -26,6 +26,7 @@ export const fetchResources = async function (): Promise<Resource[]> {
     core.warning(`No files resolved for input: ${resourceFiles}`);
   }
 
+  const apiVersions = core.getInput("api-versions", {required: false});
   const chartDir = core.getInput("chart-dir", { required: false });
   const valueFiles = core
     .getInput("value-files", { required: false })
@@ -40,7 +41,7 @@ export const fetchResources = async function (): Promise<Resource[]> {
   if (chartDir) {
     const debug = core.getBooleanInput("debug", { required: false });
     const values = valueFiles.map((f) => ["-f", f]).flat();
-    const output = await exec.getExecOutput("helm", ["template", chartDir, ...values], { silent: !debug });
+    const output = await exec.getExecOutput("helm", ["template", chartDir, apiVersions, ...values], { silent: !debug });
 
     if (output.exitCode === 0) {
       const parsedResources = parseResource(output.stdout);

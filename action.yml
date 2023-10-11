@@ -14,6 +14,10 @@ inputs:
     required: false
     description: 'YAML files to test'
     default: ""
+  api-versions:
+    required: false
+    description: 'List of api versions for helm to ignore'
+    default: ""
   chart-dir:
     required: false
     description: 'Directory of Helm-Chart to test'
