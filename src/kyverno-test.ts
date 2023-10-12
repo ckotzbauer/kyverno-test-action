@@ -13,10 +13,12 @@ const generateTestFile = async function (policies: ClusterPolicy[], resources: R
     results: [],
   };
 
+  const autogenResources = ["deployment", "daemonset", "statefulset", "job", "cronjob"]
+
   for (const policy of policies) {
     for (const rule of policy.spec.rules) {
       for (const resource of resources) {
-        const includes = rule?.match?.resources?.kinds?.includes(resource.kind) ?? false;
+        const includes = rule?.match?.resources?.kinds?.includes(resource.kind) || (autogenResources.includes(resource.kind) && resource.kind == "pod" ?? false;
         const excludes = rule?.exclude?.resources?.kinds?.includes(resource.kind) ?? false;
 
         if (includes && !excludes) {
