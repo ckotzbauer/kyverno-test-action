@@ -32,7 +32,7 @@
     "@octokit/graphql": "7.0.2",
     "axios": "1.6.7",
     "is-url": "1.2.4",
-    "semver": "7.5.4"
+    "semver": "7.6.0"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
