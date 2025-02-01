@@ -24,7 +24,7 @@
   "author": "",
   "license": "MIT",
   "overrides": {
-    "semver": "7.6.3"
+    "semver": "7.7.0"
   },
   "dependencies": {
     "@actions/core": "1.11.1",
@@ -35,7 +35,7 @@
     "@octokit/graphql": "7.1.0",
     "axios": "1.7.9",
     "is-url": "1.2.4",
-    "semver": "7.6.3"
+    "semver": "7.7.0"
   },
   "devDependencies": {
     "@types/axios": "0.14.4",
