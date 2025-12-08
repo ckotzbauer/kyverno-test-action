@@ -1,5 +1,7 @@
 # kyverno-test-action
 
+### ⚠️ This repository is archived and no longer actively maintained.
+
 [![build](https://github.com/ckotzbauer/kyverno-test-action/actions/workflows/main.yml/badge.svg)](https://github.com/ckotzbauer/kyverno-test-action/actions/workflows/main.yml)
 
 > A Github Action to test YAMLs and Helm-Charts against Kyverno policies.
